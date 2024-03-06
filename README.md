@@ -4,6 +4,7 @@ Below is a sample README file for your Let's Chat application:
 
 # Let's Chat
 
+Team no 51 => ChainWizards
 Let's Chat is a cross-platform messaging application built using Flutter & Dart SDK, offering a seamless communication experience with real-time messaging, audio & video calls, video conferences, and live audio rooms. The app utilizes Firebase for user authentication, real-time messaging, Firestore Database, and cloud storage, ensuring data security and reliability. Additionally, Zegocloud prebuilt UI 'skit and zego_uikit_signaling_plugin are integrated for audio & video calls, providing an intuitive user interface and robust signaling capabilities.
 
 ## Features
