@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "extInfo": null,
+      "property": "{\"classify\":\"combiner\",\"id\":\"combinermakeup_facepaint\",\"matName\":\"Skin\",\"matNodeName\":\"ZEGO_Shape\",\"type\":\"mat_property\"}",
+      "value": "{@builtin_abpath}/zegoq_share_w_sticker_0003_0001_basecolor_pkg/ZEGOQ_Share_W_Sticker_0003_0001_Basecolor.png",
+      "type": "facepaint"
+    }
+  ],
+  "version": "1.0.0",
+  "sdkVersion": "1.0.0",
+  "platform": "android"
+}

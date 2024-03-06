@@ -1,0 +1,17 @@
+{
+  "properties": [
+    {
+      "extInfo": {
+        "images": null,
+        "updateBlendshape": null,
+        "magicaConfig": "{@builtin_abpath}/zego_man_earrings_0001_pkg/magicaConfig.json"
+      },
+      "property": "{\"type\":\"prefab\",\"id\":\"Earring\"}",
+      "value": "{@builtin_abpath}/zego_man_earrings_0001_pkg/ZEGO_Man_Earrings_0001.prefab",
+      "type": "earring"
+    }
+  ],
+  "version": "1.0.0",
+  "sdkVersion": "1.0.0",
+  "platform": "android"
+}

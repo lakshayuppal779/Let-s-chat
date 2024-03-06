@@ -1,0 +1,23 @@
+{
+    "properties": [
+        {
+            "extInfo": {
+                "images": null,
+                "updateBlendshape": [
+                    {
+                        "nodeName": "Hair",
+                        "blendshape": {
+                            "ZEGOQ_Hair.HairShape_Headset_01": 100.0
+                        }
+                    }
+                ]
+            },
+            "property": "{\"type\":\"prefab\",\"id\":\"Earphone\"}",
+            "value": "{@builtin_abpath}/zegoq_share_headset_0001_pkg/ZEGOQ_Share_Headset_0001.prefab",
+            "type": "earphone"
+        }
+    ],
+    "version": "1.0.0",
+    "sdkVersion": "1.0.0",
+    "platform": "android"
+}

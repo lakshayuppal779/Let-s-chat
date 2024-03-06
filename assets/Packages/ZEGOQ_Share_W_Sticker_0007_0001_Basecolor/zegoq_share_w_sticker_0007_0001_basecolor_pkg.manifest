@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 2954269256
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 23ddc3d9cebb07252aefd5aa09c34b64
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ff414f606ea1972259b080d7bcf51689
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Src/Avatar_Q/combinermakeup_facepaint/ZEGOQ_Share_W_Sticker_0007_0001_Basecolor/ZEGOQ_Share_W_Sticker_0007_0001_Basecolor.png
+Dependencies: []

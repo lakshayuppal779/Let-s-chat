@@ -1,0 +1,9 @@
+{
+    "models": {
+        "face_feature": "face_feature.1.4.5.model",
+        "face_mesh": "facemesh.1.4.5.model",
+        "voice_feature": "voice.1.4.5.model",
+        "pose_track": "pose_track.1.4.5.model",
+        "hand_classify": "hand.1.4.5.model"
+    }
+}

@@ -1,0 +1,20 @@
+{
+  "properties": [
+    {
+      "materials": [
+        "ZEGO_Man_Hair_0008_Shader_0001"
+      ],
+      "extInfo": {
+        "updateBlendshape": null,
+        "blendshapeControl": null,
+        "magicaConfig": null
+      },
+      "property": "{\"type\":\"prefab\",\"id\":\"Hair\"}",
+      "value": "{@builtin_abpath}/zego_man_hair_0008_pkg/ZEGO_Man_Hair_0008.prefab",
+      "type": "hair"
+    }
+  ],
+  "version": "1.0.0",
+  "sdkVersion": "1.0.0",
+  "platform": "android"
+}

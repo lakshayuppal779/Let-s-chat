@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 3532420609
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 996761b548e355540b45bf4038fdf2e3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ff414f606ea1972259b080d7bcf51689
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Src/Avatar_Q/combinermakeup_lip/ZEGOQ_Share_Lip_0001_0008_BaseColor/ZEGOQ_Share_Lip_0001_0008_BaseColor.tga
+Dependencies: []

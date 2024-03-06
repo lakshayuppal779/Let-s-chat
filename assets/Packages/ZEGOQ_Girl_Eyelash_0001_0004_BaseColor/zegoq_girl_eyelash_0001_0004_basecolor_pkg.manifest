@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 1820068990
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 89c164d207e03c17061f8bcf627e5e1f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ff414f606ea1972259b080d7bcf51689
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Src/Avatar_Q/eyelash/ZEGOQ_Girl_Eyelash_0001_0004_BaseColor/ZEGOQ_Girl_Eyelash_0001_0004_BaseColor.tga
+Dependencies: []
