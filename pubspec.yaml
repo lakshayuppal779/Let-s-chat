@@ -33,7 +33,7 @@ dependencies:
   image_picker: ^1.0.7
   font_awesome_flutter: ^10.7.0
   cached_network_image: ^3.3.1
-  emoji_picker_flutter: ^2.0.0
+  emoji_picker_flutter: ^2.1.0
   google_generative_ai: ^0.2.0
   flutter_markdown:
   url_launcher: ^6.2.4
