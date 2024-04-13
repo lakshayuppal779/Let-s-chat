@@ -10,7 +10,11 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_auth
   firebase_core
   firebase_storage
+  irondash_engine_context
+  local_auth_windows
   permission_handler_windows
+  share_plus
+  super_native_extensions
   url_launcher_windows
   zego_express_engine
   zego_zim

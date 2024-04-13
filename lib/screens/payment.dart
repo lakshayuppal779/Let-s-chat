@@ -109,7 +109,13 @@ class _RazorpayPageState extends State<RazorpayPage> {
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(
                               color: Colors.white,
-                              width: 1.0,
+                              width: 1.5,
+                            )
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                              width: 2.0,
                             )
                         ),
                         errorStyle: TextStyle(color: Colors.redAccent, fontSize: 15)

@@ -54,7 +54,7 @@ class _signupState extends State<signup> {
           child: SingleChildScrollView(
             child: Container(
               width: 300,
-              height: 900,
+              height: 700,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Column(
@@ -213,7 +213,7 @@ class _signupState extends State<signup> {
                             backgroundColor: Colors.blueAccent,
                             shape: ContinuousRectangleBorder(),
                           ),
-                          label: Text("Sign up with phone no",style: TextStyle(color: Colors.white,fontSize: 16),),
+                          label: Text("Sign up with Phone No",style: TextStyle(color: Colors.white,fontSize: 16),),
                         ),
                       ),
                     ),

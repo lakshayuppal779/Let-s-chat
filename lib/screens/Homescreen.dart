@@ -1,19 +1,24 @@
+import 'dart:developer';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lets_chat/API/apis.dart';
+import 'package:lets_chat/birthday_reminder/splash1.dart';
 import 'package:lets_chat/flutter_gemini/splash.dart';
 import 'package:lets_chat/helper/dialogs.dart';
 import 'package:lets_chat/models/chat_user.dart';
+import 'package:lets_chat/notesMaking/ui/views/HomePage.dart';
+import 'package:lets_chat/notesMaking/ui/views/NoteCreationPage.dart';
 import 'package:lets_chat/screens/LiveAudioRoom.dart';
 import 'package:lets_chat/screens/payment.dart';
 import 'package:lets_chat/screens/profilescreen.dart';
+import 'package:lets_chat/screens/support.dart';
 import 'package:lets_chat/screens/videoConference.dart';
+import 'package:lets_chat/status/statusScreen.dart';
 import 'package:lets_chat/widgets/chat_user_card.dart';
-
 import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,14 +28,14 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
   //for storing all users
   List<ChatUser> list=[];
 
   //for storing search items
   final List<ChatUser> _searchlist=[];
 
-  //for storing search status
+  //for storing search status`
   bool _isSearching  = false;
 
   @override
@@ -38,17 +43,32 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     APIs.getselfinfo();
-    SystemChannels.lifecycle.setMessageHandler((message){
-      if(FirebaseAuth.instance.currentUser!=null) {
-        if (message.toString().contains('resume')) {
-          APIs.updateActiveStatus(true);
-        }
-        if (message.toString().contains('pause')) {
-          APIs.updateActiveStatus(false);
-        }
-      }
-        return Future.value(message);
-      });
+    WidgetsBinding.instance?.addObserver(this);
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        APIs.updateActiveStatus(true);
+        break;
+      case AppLifecycleState.paused:
+        APIs.updateActiveStatus(false);
+        break;
+      case AppLifecycleState.detached:
+      // Handle app termination
+        APIs.updateActiveStatus(false);
+        break;
+      default:
+        break;
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -73,9 +93,11 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: "Enter Name,Email...",
+                hintStyle: TextStyle(color: Colors.white)
               ),
               autofocus: true,
-              style: TextStyle(fontSize: 17,letterSpacing: 0.5),
+              style: TextStyle(fontSize: 17,letterSpacing: 0.5,color: Colors.white),
+              cursorColor: Colors.white,
               onChanged: (val){
                 //search logic
                 _searchlist.clear();
@@ -89,59 +111,164 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               },
             ):Text("Let's Chat"),
-            leading: Icon(Icons.home,size: 26,),
+            leading: IconButton(
+                onPressed: () async {
+                  final XFile? photo = await ImagePicker()
+                      .pickImage(source: ImageSource.camera);
+                },
+                icon: Icon(
+                  Icons.camera_alt_outlined,
+                  color: Colors.white,
+                  size: 26,
+                )
+            ),
+
             actions: [
               IconButton(onPressed: () {
                 setState(() {
                   _isSearching=!_isSearching;
-
                 });
               }, icon: Icon(_isSearching?CupertinoIcons.clear_circled_solid:Icons.search,size: 26,)),
-              IconButton(onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Profilescreen(user: APIs.me),));
-              }, icon: Icon(Icons.more_vert,size: 26,)),
+              PopupMenuButton(
+                icon: Icon(Icons.more_vert, color: Colors.white),
+                onSelected: (String value) {
+                   if (value == 'Reminder') {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>BirthdaySplashScreen()));
+                  }
+                   else if (value == 'My_profile') {
+                     Navigator.push(context, MaterialPageRoute(builder: (context) =>Profilescreen(user: APIs.me),));
+                   }
+                   else if (value == 'support') {
+                     Navigator.push(context, MaterialPageRoute(builder: (context) =>SupportScreen()));
+                   }
+                   else if (value == 'Make_groups') {
+                     List<ChatUser> selectedUsers = [];
+
+                     showDialog(
+                       context: context,
+                       builder: (_) => AlertDialog(
+                         title: Text('Add Users to Group'),
+                         content: ListView.builder(
+                           itemCount: list.length,
+                           itemBuilder: (context, index) {
+                             final user = list[index];
+                             final isSelected = selectedUsers.contains(user);
+                             return ListTile(
+                               title: Text(user.name),
+                               leading: Checkbox(
+                                 value: isSelected,
+                                 onChanged: (newValue) {
+                                   setState(() {
+                                     if (newValue != null && newValue) {
+                                       selectedUsers.add(user);
+                                     } else {
+                                       selectedUsers.remove(user);
+                                     }
+                                   });
+                                 },
+                               ),
+                             );
+                           },
+                         ),
+                         actions: [
+                           ElevatedButton(
+                             onPressed: () {
+                               createGroupChat(selectedUsers);
+                               Navigator.pop(context);
+                             },
+                             child: Text('Create Group Chat'),
+                           ),
+                         ],
+                       ),
+                     );
+                   }
+                   else if (value == 'Make_notes') {
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+
+                   }
+                },
+                itemBuilder: (BuildContext context) {
+                  return [
+                    PopupMenuItem(
+                      value: 'My_profile',
+                      child: Text('My Profile'),
+                    ),
+                    PopupMenuItem(
+                      value: 'Reminder',
+                      child: Text('Reminders'),
+                    ),
+                    PopupMenuItem(
+                      value: 'Make_groups',
+                      child: Text('New group'),
+                    ),
+                    PopupMenuItem(
+                      value: 'Make_notes',
+                      child: Text('Notes'),
+                    ),
+                    PopupMenuItem(
+                      value: 'support',
+                      child: Text('Support'),
+                    ),
+                    PopupMenuItem(
+                      value: 'settings',
+                      child: Text('Settings'),
+                    ),
+                  ];
+                },
+              ),
             ],
             backgroundColor: Colors.blueAccent,
           ),
+          resizeToAvoidBottomInset: false,
           bottomNavigationBar: SizedBox(
             height: 88,
             child: CurvedNavigationBar(
               backgroundColor: Colors.blueAccent,
               animationDuration: Duration(milliseconds: 300),
               items: <Widget>[
-                Icon(Icons.home, size: 27),
-                FaIcon(FontAwesomeIcons.robot,size: 23,),
                 SizedBox(
                     height: 27,
                     width: 27,
-                    child: Image.asset('assets/images/get-money.png',color: Colors.black,)
+                    child: Image.asset('assets/images/home (1).png',color: Colors.black,)
                 ),
                 SizedBox(
                     height: 27,
                     width: 27,
-                    child: Image.asset('assets/images/headphone.png',color: Colors.black,)
+                    child: Image.asset('assets/images/story.png',color: Colors.black,)
+                ),
+                SizedBox(
+                    height:28,
+                    width: 28,
+                    child: Image.asset('assets/images/bot.png',color: Colors.black,)
+                ),
+                SizedBox(
+                    height: 28,
+                    width: 28,
+                    child: Image.asset('assets/images/get-money (1).png',color: Colors.black,)
                 ),
                 SizedBox(
                   height: 27,
                     width: 27,
-                    child: Image.asset('assets/images/video-conference.png',color: Colors.black,)
+                    child: Image.asset('assets/images/videocall.png',color: Colors.black,)
                 ),
               ],
               onTap: (index) async {
                 if(index==0){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
                 }
-                if(index==1){
+                if(index==2){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreen(),));
                 }
-                if(index==2){
+                if(index==3){
                   // final XFile? photo = await ImagePicker()
                   //     .pickImage(source: ImageSource.camera);
                   Navigator.push(context, MaterialPageRoute(builder: (context) => RazorpayPage(),));
                 }
-                if(index==3){
+                if(index==1){
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => Contacts(),));
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LivePage(roomID: "4")));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => LivePage(roomID: "4")));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Status_Screen(user: APIs.me,)));
+
                 }
                 if(index==4){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => VideoConferencePage(conferenceID: "3"),));
@@ -160,7 +287,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           body:StreamBuilder(
             stream: APIs.getMyUsersId(),
-
             //get id of only known users
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
@@ -175,7 +301,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   return StreamBuilder(
                     stream: APIs.getAllUsers(
                         snapshot.data?.docs.map((e) => e.id).toList() ?? []),
-
                     //get only those user, who's ids are provided
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
@@ -290,5 +415,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ))
           ],
         ));
+  }
+
+  void createGroupChat(List<ChatUser> selectedUsers) {
+    // Implement logic to create group chat with selected users
+    // For example:
+    log('Creating group chat with selected users: $selectedUsers');
+    // After creating the group chat, you can navigate back to the home screen
+    Navigator.pop(context);
+    // Perform any other necessary actions, such as creating a group chat in the backend
   }
 }

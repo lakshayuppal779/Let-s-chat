@@ -51,23 +51,31 @@ class _forgetpasswordState extends State<forgetpassword> {
           child: SingleChildScrollView(
             child: Container(
                 width: 310,
-                height: 700,
+                height: 745,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 120),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Text("Enter your Email",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
-                          ],
+                        SizedBox(
+                            height: 250,
+                            width: 250,
+                            child: Image.asset('assets/images/undraw_Forgot_password_re_hxwm.png')
                         ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Enter your Email",
+                            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+
                         SizedBox(
                           height: 15,
                         ),
                         Text("We will send a link to this email to reset the password.",style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color: Colors.grey),),
                         SizedBox(
-                          height: 40,
+                          height: 25,
                         ),
                         TextField(
                           style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),

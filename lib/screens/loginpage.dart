@@ -29,7 +29,7 @@ class _loginpageState extends State<loginpage> {
       try {
             usercredential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password)
-            .then((value) => Navigator.push(
+            .then((value) => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => HomeScreen(),
@@ -112,57 +112,60 @@ class _loginpageState extends State<loginpage> {
               width: 300,
               height: 700,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
+                padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 15,
-                    ),
                     Container(
-                      width: 125,
-                        height:125,
-                        child: Image.asset('assets/images/chat.png')
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    TextField(
-                      style: TextStyle(fontWeight: FontWeight.normal,fontSize: 17),
-                      controller: utext,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                          label: Text('Username'),
-                          suffixIcon: Icon(Icons.mail),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          )),
+                      width: 200,
+                        height:200,
+                        child: Image.asset('assets/images/undraw_Online_messaging_re_qft3.png')
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    TextField(
-                      style: TextStyle(fontWeight: FontWeight.normal,fontSize: 17),
-                      controller: ptext,
-                      keyboardType: TextInputType.emailAddress,
-                      obscureText: passwordVisible,
-                      decoration: InputDecoration(
-                          label: Text('Password'),
-                          suffixIcon: IconButton(
-                            icon: Icon(passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(
-                                    () {
-                                  passwordVisible = !passwordVisible;
-                                },
-                              );
-                            },
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          )),
+                    SizedBox(
+                      height: 60,
+                      child: TextField(
+                        style: TextStyle(fontWeight: FontWeight.normal,fontSize: 17),
+                        controller: utext,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                            label: Text('Username'),
+                            suffixIcon: Icon(Icons.mail),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            )),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: 60,
+                      child: TextField(
+                        style: TextStyle(fontWeight: FontWeight.normal,fontSize: 17),
+                        controller: ptext,
+                        keyboardType: TextInputType.emailAddress,
+                        obscureText: passwordVisible,
+                        decoration: InputDecoration(
+                            label: Text('Password'),
+                            suffixIcon: IconButton(
+                              icon: Icon(passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(
+                                      () {
+                                    passwordVisible = !passwordVisible;
+                                  },
+                                );
+                              },
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            )),
+                      ),
                     ),
                     SizedBox(
                       height: 25,
@@ -214,6 +217,9 @@ class _loginpageState extends State<loginpage> {
                             icon:Image.asset('assets/images/google.png',height: 30,),
                             label: Text(" Continue with Google",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.black87),)),
                       ),
+                    ),
+                    SizedBox(
+                      height: 5,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

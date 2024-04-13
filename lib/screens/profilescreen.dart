@@ -29,8 +29,9 @@ class _ProfilescreenState extends State<Profilescreen> {
         appBar: AppBar(
           title: Text("My Profile"),
         ),
+        resizeToAvoidBottomInset: false,
         floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom: 30),
+          padding: const EdgeInsets.only(bottom: 10),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(40),
             child: FloatingActionButton.extended(
@@ -87,15 +88,18 @@ class _ProfilescreenState extends State<Profilescreen> {
                             ),
                           ),
                           Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: MaterialButton(onPressed: (){
+                            bottom: -2,
+                            right: -16,
+                            child: MaterialButton(
+                              onPressed: (){
                               _showbottomsheet();
-                            },
-                              child: Icon(Icons.edit,color: Colors.blue),
+                               },
+                              height: 40,
+                              child: Icon(Icons.camera_alt_rounded,color: Colors.blue),
                               shape: CircleBorder(),
                               color: Colors.white,
                               elevation: 1,
+
                             ),
                           )
                         ],
@@ -145,9 +149,10 @@ class _ProfilescreenState extends State<Profilescreen> {
                       SizedBox(
                         height: 40,
                       ),
+
                       SizedBox(
                         width: 180,
-                        height: 50,
+                        height: 45,
                         child: ElevatedButton.icon(onPressed: (){
                           if(_formkey.currentState!.validate()){
                             _formkey.currentState!.save();
@@ -156,10 +161,10 @@ class _ProfilescreenState extends State<Profilescreen> {
                           }
                         },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue.shade400,
+                            backgroundColor: Colors.blueAccent,
                           ),
-                            icon: Icon(Icons.edit,color: Colors.white,size: 28,),
-                            label: Text("UPDATE",style: TextStyle(color: Colors.white,fontSize: 16),),
+                            icon: Icon(Icons.edit,color: Colors.white,size: 26,),
+                            label: Text("Edit profile",style: TextStyle(color: Colors.white,fontSize: 16),),
                         ),
                       )
                     ],
